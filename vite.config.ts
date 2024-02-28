@@ -6,6 +6,7 @@ export default defineConfig({
       entry: "src/index.ts",
       name: "MyGitHubAction",
       formats: ["es"],
+      fileName: () => `index.js`,
     },
   },
 });

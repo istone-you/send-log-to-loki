@@ -1,13 +1,18 @@
 {
-  "name": "index",
+  "name": "lokisend",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "axios": "^1.6.7",
     "vite": "^5.1.4"
   }
 }
