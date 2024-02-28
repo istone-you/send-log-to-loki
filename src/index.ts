@@ -20,17 +20,20 @@ async function sendLog(): Promise<void> {
     return;
   }
 
+  const repositoryOwner = github.context.repo.owner;
   const repositoryName = github.context.repo.repo;
-  const actionName = github.context.action;
-  const workflowName = github.context.workflow;
+  const action = github.context.action;
+  const workflow = github.context.workflow;
 
   const logEntry = {
     streams: [
       {
         stream: {
           source: "lokisend-cli",
-          repository: repositoryName,
-          workflow: workflowName,
+          repositoryOwner,
+          repositoryName,
+          action,
+          workflow,
           ...labels,
         },
         values: [[`${Date.now()}000000`, message]],
