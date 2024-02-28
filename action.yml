@@ -1,0 +1,24 @@
+name: "LokiSend"
+description: "Send logs to Grafana Loki"
+inputs:
+  message:
+    description: "Log message to send to Loki"
+    required: true
+  loki_address:
+    description: "Loki server address"
+    required: true
+  loki_username:
+    description: "Loki username"
+    required: false
+  loki_password:
+    description: "Loki password"
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    LOKI_ADDRESS: ${{ inputs.loki_address }}
+    LOKI_USERNAME: ${{ inputs.loki_username }}
+    LOKI_PASSWORD: ${{ inputs.loki_password }}
+  args:
+    - ${{ inputs.message }}

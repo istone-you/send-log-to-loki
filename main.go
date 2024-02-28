@@ -4,19 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
-)
-
-var (
-	lokiAddress  string 
-	lokiUsername string
-	lokiPassword string 
 )
 
 var rootCmd = &cobra.Command{
@@ -28,18 +20,13 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func init() {
-	// .envファイルから環境変数を読み込む
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file")
-	}
 
-	lokiAddress = os.Getenv("LOKI_ADDRESS")
-	lokiUsername = os.Getenv("LOKI_USERNAME")
-	lokiPassword = os.Getenv("LOKI_PASSWORD")
-}
 
 func sendLog(message string) error {
+	lokiAddress := os.Getenv("LOKI_ADDRESS")
+	lokiUsername := os.Getenv("LOKI_USERNAME")
+	lokiPassword := os.Getenv("LOKI_PASSWORD")
+	
 	// ログエントリを作成
 	logEntry := map[string]interface{}{
 		"streams": []map[string]interface{}{
