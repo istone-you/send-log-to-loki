@@ -1,4 +1,5 @@
 import * as core from "@actions/core";
+import * as github from "@actions/github";
 import axios from "axios";
 
 async function sendLog(): Promise<void> {
@@ -10,7 +11,6 @@ async function sendLog(): Promise<void> {
   let labels = {};
 
   try {
-    // labelsInputが空でなければ、JSONとして解析
     if (labelsInput) {
       labels = JSON.parse(labelsInput);
     }
@@ -20,10 +20,19 @@ async function sendLog(): Promise<void> {
     return;
   }
 
+  const repositoryName = github.context.repo.repo;
+  const actionName = github.context.action;
+  const workflowName = github.context.workflow;
+
   const logEntry = {
     streams: [
       {
-        stream: { source: "lokisend-cli", ...labels },
+        stream: {
+          source: "lokisend-cli",
+          repository: repositoryName,
+          workflow: workflowName,
+          ...labels,
+        },
         values: [[`${Date.now()}000000`, message]],
       },
     ],
