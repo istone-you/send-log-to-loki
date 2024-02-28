@@ -22,7 +22,6 @@ async function sendLog(): Promise<void> {
 
   const repositoryOwner = github.context.repo.owner;
   const repositoryName = github.context.repo.repo;
-  const action = github.context.action;
   const workflow = github.context.workflow;
 
   const logEntry = {
@@ -32,7 +31,6 @@ async function sendLog(): Promise<void> {
           source: "lokisend-cli",
           repositoryOwner,
           repositoryName,
-          action,
           workflow,
           ...labels,
         },

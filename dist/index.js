@@ -31367,14 +31367,12 @@ function sendLog() {
         }
         const repositoryOwner = github.context.repo.owner;
         const repositoryName = github.context.repo.repo;
-        const action = github.context.action;
         const workflow = github.context.workflow;
         const logEntry = {
             streams: [
                 {
                     stream: Object.assign({ source: "lokisend-cli", repositoryOwner,
                         repositoryName,
-                        action,
                         workflow }, labels),
                     values: [[`${Date.now()}000000`, message]],
                 },
