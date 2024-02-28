@@ -8,6 +8,6 @@
     "forceConsistentCasingInFileNames": true, // ファイル名の大文字小文字を一貫性を保つ
     "outDir": "./dist"
   },
-  "include": ["src/**/*.ts"], // コンパイル対象のファイルまたはディレクトリ
+  "include": ["src/**/*.ts", "vite.config.ts"], // コンパイル対象のファイルまたはディレクトリ
   "exclude": ["node_modules"] // コンパイルから除外するファイルまたはディレクトリ
 }
