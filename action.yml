@@ -4,6 +4,18 @@ inputs:
   message:
     description: "Log message to send"
     required: true
+  loki_address:
+    description: "Loki instance address"
+    required: true
+  loki_username:
+    description: "Loki username for basic auth"
+    required: true
+  loki_password:
+    description: "Loki password for basic auth"
+    required: true
+  labels:
+    description: "JSON string of labels to attach to the log message"
+    required: false
 runs:
   using: "node20"
   main: "dist/index.js"

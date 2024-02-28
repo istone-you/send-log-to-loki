@@ -27081,10 +27081,23 @@ function sendLog() {
         const lokiAddress = core.getInput("loki_address");
         const lokiUsername = core.getInput("loki_username");
         const lokiPassword = core.getInput("loki_password");
+        const labelsInput = core.getInput("labels");
+        let labels = {};
+        try {
+            // labelsInputが空でなければ、JSONとして解析
+            if (labelsInput) {
+                labels = JSON.parse(labelsInput);
+            }
+        }
+        catch (error) {
+            console.error("Error parsing labels:", error);
+            core.setFailed("Error parsing labels");
+            return;
+        }
         const logEntry = {
             streams: [
                 {
-                    stream: { source: "lokisend-cli" },
+                    stream: Object.assign({ source: "lokisend-cli" }, labels),
                     values: [[`${Date.now()}000000`, message]],
                 },
             ],
