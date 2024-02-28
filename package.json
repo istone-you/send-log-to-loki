@@ -1,0 +1,13 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "vite build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.1.4"
+  }
+}
