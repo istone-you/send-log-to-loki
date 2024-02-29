@@ -52,7 +52,7 @@ async function sendLog(): Promise<void> {
     streams: [
       {
         stream: {
-          source: "github actions",
+          source: "github-actions",
           repositoryOwner,
           repositoryName,
           workflow,
