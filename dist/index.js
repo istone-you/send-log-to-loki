@@ -31383,6 +31383,7 @@ function sendLog() {
         const repositoryOwner = github.context.repo.owner;
         const repositoryName = github.context.repo.repo;
         const workflow = github.context.workflow;
+        const job = github.context.job;
         const runId = github.context.runId;
         const runNumber = github.context.runNumber;
         const actor = github.context.actor;
@@ -31393,6 +31394,7 @@ function sendLog() {
                     stream: Object.assign({ source: "github-actions", repositoryOwner,
                         repositoryName,
                         workflow,
+                        job,
                         runId,
                         runNumber,
                         actor,
