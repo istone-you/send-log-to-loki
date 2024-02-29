@@ -1,23 +1,42 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import axios from "axios";
+import * as fs from "fs";
+import * as path from "path";
 
 async function sendLog(): Promise<void> {
   const message = core.getInput("message");
+  const duration = core.getInput("duration");
   const lokiAddress = core.getInput("loki_address");
   const lokiUsername = core.getInput("loki_username");
   const lokiPassword = core.getInput("loki_password");
-  const labelsInput = core.getInput("labels");
-  let labels = {};
+  const labelsInput = core.getInput("labels") || "{}";
+  const timeFilePath = path.join(
+    process.env.GITHUB_WORKSPACE || "",
+    "action_time.txt"
+  );
+
+  let labels: { [key: string]: string };
 
   try {
-    if (labelsInput) {
-      labels = JSON.parse(labelsInput);
-    }
+    labels = JSON.parse(labelsInput);
   } catch (error) {
     console.error("Error parsing labels:", error);
     core.setFailed("Error parsing labels");
+
     return;
+  }
+
+  if (duration === "start") {
+    const startTime = Date.now().toString();
+
+    fs.writeFileSync(timeFilePath, startTime);
+  } else if (duration === "finish" && fs.existsSync(timeFilePath)) {
+    const startTime = parseInt(fs.readFileSync(timeFilePath, "utf8"), 10);
+    const endTime = Date.now();
+    const executionDuration = Math.round((endTime - startTime) / 1000);
+
+    labels["duration"] = `${executionDuration} seconds`;
   }
 
   const repositoryOwner = github.context.repo.owner;

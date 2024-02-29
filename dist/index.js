@@ -31347,23 +31347,35 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const axios_1 = __importDefault(__nccwpck_require__(8757));
+const fs = __importStar(__nccwpck_require__(7147));
+const path = __importStar(__nccwpck_require__(1017));
 function sendLog() {
     return __awaiter(this, void 0, void 0, function* () {
         const message = core.getInput("message");
+        const duration = core.getInput("duration");
         const lokiAddress = core.getInput("loki_address");
         const lokiUsername = core.getInput("loki_username");
         const lokiPassword = core.getInput("loki_password");
-        const labelsInput = core.getInput("labels");
-        let labels = {};
+        const labelsInput = core.getInput("labels") || "{}";
+        const timeFilePath = path.join(process.env.GITHUB_WORKSPACE || "", "action_time.txt");
+        let labels;
         try {
-            if (labelsInput) {
-                labels = JSON.parse(labelsInput);
-            }
+            labels = JSON.parse(labelsInput);
         }
         catch (error) {
             console.error("Error parsing labels:", error);
             core.setFailed("Error parsing labels");
             return;
+        }
+        if (duration === "start") {
+            const startTime = Date.now().toString();
+            fs.writeFileSync(timeFilePath, startTime);
+        }
+        else if (duration === "finish" && fs.existsSync(timeFilePath)) {
+            const startTime = parseInt(fs.readFileSync(timeFilePath, "utf8"), 10);
+            const endTime = Date.now();
+            const executionDuration = Math.round((endTime - startTime) / 1000);
+            labels["duration"] = `${executionDuration} seconds`;
         }
         const repositoryOwner = github.context.repo.owner;
         const repositoryName = github.context.repo.repo;
