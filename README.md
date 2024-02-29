@@ -4,9 +4,10 @@ This GitHub Action sends logs from GitHub Actions workflows to [Grafana Loki](ht
 
 ## Features
 
-- Sends execution information of GitHub Actions (e.g., start and end times) to Loki.
-- Allows including custom messages and labels with logs.
-- Includes the GitHub Actions execution URL in the log labels for easy access.
+The features of this action include:
+
+It can send execution information of GitHub Actions (such as execution time and URL) to Loki.
+It allows including custom messages and labels in the logs.
 
 ## Prerequisites
 
@@ -15,37 +16,47 @@ This GitHub Action sends logs from GitHub Actions workflows to [Grafana Loki](ht
 
 ## Usage
 
-### Step 1: Setup the Action
-
-Include the action in your workflow by adding the following step:
+Simply include the following action in your workflow.
 
 ```yaml
 - name: Send log to Loki
   uses: istone-you/send-log-to-loki@v1
   with:
-    message: "Your log message"
+    message: "Freely describe the log message"
     measurement: "start"
     loki_address: "http://your-loki-instance:3100"
     loki_username: ${{ secrets.LOKI_USERNAME }}
     loki_password: ${{ secrets.LOKI_PASSWORD }}
-    labels: '{"key": "value"}' 
+    labels: '{"key": "value"}'
 ```
 
 **Parameters**:
 
 - `message`: The log message you want to send to Loki.
-- `measurement`: (Optional) Specify "start" to record the start time or "finish" to calculate and send the execution duration.
+- `measurement`: Specify "start" to record the start time or "finish" to calculate and send the execution duration.(Optional)
 - `loki_address`: The URL to your Loki instance.
-- `loki_username` and `loki_password`: Credentials for Loki authentication.
-- `labels`: (Optional) A JSON string of key-value pairs to be attached as labels to the log message.
+- `loki_username`: The username for accessing Loki.
+- `loki_password`: The password for accessing Loki.
+- `labels`: A JSON string of key-value pairs to be attached as labels to the log message.(Optional)
 
-### Step 2: Add Loki Credentials to Your GitHub Secrets
+## Labels Included in the Log
 
-For security reasons, it's recommended to store your Loki credentials (LOKI_USERNAME and LOKI_PASSWORD) in the GitHub repository secrets.
+The log sent to Loki will include the following labels:
 
-### Step 3: Configure Loki to Receive Logs
+- `actor`: The executor
+- `branch`: Branch name
+- `duration`: Execution time (recorded when "start" and "finish" are specified for the measurement parameter)
+- `job`: Job name
+- `measurement`: The value of the measurement parameter specified at the time of action execution
+- `repositoryName`: Repository name
+- `repositoryOwner`: Repository owner
+- `runId`: Execution ID
+- `runNumber`: Execution number
+- `source`: Contains the value github-actions
+- `url`: URL
+- `workflow`: Workflow name
 
-Ensure your Loki instance is configured to receive logs over HTTP. Consult the [Loki documentation](https://grafana.com/docs/loki/latest/setup/) for guidance on setting up your Loki server.
+Other labels will include those specified in the labels parameter.
 
 ## Contributing
 
