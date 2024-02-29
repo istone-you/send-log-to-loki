@@ -1,7 +1,5 @@
 name: "Send Log to Loki"
 description: "This action sends a custom log message to Grafana Loki."
-icon: "send"
-color: "orange"
 inputs:
   message:
     description: "Log message to send"
@@ -24,3 +22,6 @@ inputs:
 runs:
   using: "node20"
   main: "dist/index.js"
+branding:
+  icon: "send"
+  color: "orange"
