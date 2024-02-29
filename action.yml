@@ -1,5 +1,5 @@
 name: "Send Log to Loki"
-description: "Sends a log message to Grafana Loki"
+description: "This action sends a custom log message to Grafana Loki, supporting dynamic labels and execution time tracking. It's ideal for monitoring and debugging workflows."
 inputs:
   message:
     description: "Log message to send"
