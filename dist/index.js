@@ -31352,7 +31352,7 @@ const path = __importStar(__nccwpck_require__(1017));
 function sendLog() {
     return __awaiter(this, void 0, void 0, function* () {
         const message = core.getInput("message");
-        const actionType = core.getInput("action");
+        const measurement = core.getInput("measurement");
         const lokiAddress = core.getInput("loki_address");
         const lokiUsername = core.getInput("loki_username");
         const lokiPassword = core.getInput("loki_password");
@@ -31367,11 +31367,11 @@ function sendLog() {
             core.setFailed("Error parsing labels");
             return;
         }
-        if (actionType === "start") {
+        if (measurement === "start") {
             const startTime = Date.now().toString();
             fs.writeFileSync(timeFilePath, startTime);
         }
-        else if (actionType === "finish" && fs.existsSync(timeFilePath)) {
+        else if (measurement === "finish" && fs.existsSync(timeFilePath)) {
             const startTime = parseInt(fs.readFileSync(timeFilePath, "utf8"), 10);
             const endTime = Date.now();
             const executionDuration = Math.round((endTime - startTime) / 1000);

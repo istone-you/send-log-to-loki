@@ -6,7 +6,7 @@ import * as path from "path";
 
 async function sendLog(): Promise<void> {
   const message = core.getInput("message");
-  const actionType = core.getInput("action");
+  const measurement = core.getInput("measurement");
   const lokiAddress = core.getInput("loki_address");
   const lokiUsername = core.getInput("loki_username");
   const lokiPassword = core.getInput("loki_password");
@@ -27,11 +27,11 @@ async function sendLog(): Promise<void> {
     return;
   }
 
-  if (actionType === "start") {
+  if (measurement === "start") {
     const startTime = Date.now().toString();
 
     fs.writeFileSync(timeFilePath, startTime);
-  } else if (actionType === "finish" && fs.existsSync(timeFilePath)) {
+  } else if (measurement === "finish" && fs.existsSync(timeFilePath)) {
     const startTime = parseInt(fs.readFileSync(timeFilePath, "utf8"), 10);
     const endTime = Date.now();
     const executionDuration = Math.round((endTime - startTime) / 1000);

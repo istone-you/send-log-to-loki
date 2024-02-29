@@ -4,8 +4,8 @@ inputs:
   message:
     description: "Log message to send"
     required: true
-  action:
-    description: "Specifies the action to perform: 'start' to record the start time, or 'finish' to calculate and send the execution duration."
+  measurement:
+    description: "Controls the execution time measurement: 'start' to record the start time, or 'finish' to calculate and send the execution duration."
     required: false
   loki_address:
     description: "Loki instance address"
