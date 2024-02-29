@@ -24,20 +24,20 @@ Include the action in your workflow by adding the following step:
   uses: istone-you/send-log-to-loki@v1
   with:
     message: "Your log message"
-    measurement: "start" # or "finish" Optional
+    measurement: "start"
     loki_address: "http://your-loki-instance:3100"
     loki_username: ${{ secrets.LOKI_USERNAME }}
     loki_password: ${{ secrets.LOKI_PASSWORD }}
-    labels: '{"key": "value"}' # Optional
+    labels: '{"key": "value"}' 
 ```
 
 **Parameters**:
 
 - `message`: The log message you want to send to Loki.
-- `measurement`: Specify "start" to record the start time or "finish" to calculate and send the execution duration.
+- `measurement`: (Optional) Specify "start" to record the start time or "finish" to calculate and send the execution duration.
 - `loki_address`: The URL to your Loki instance.
-- `loki_username` and loki_password: Credentials for Loki authentication.
-- `labels`: A JSON string of key-value pairs to be attached as labels to the log message. Optional.
+- `loki_username` and `loki_password`: Credentials for Loki authentication.
+- `labels`: (Optional) A JSON string of key-value pairs to be attached as labels to the log message.
 
 ### Step 2: Add Loki Credentials to Your GitHub Secrets
 
