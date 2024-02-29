@@ -31383,13 +31383,20 @@ function sendLog() {
         const repositoryOwner = github.context.repo.owner;
         const repositoryName = github.context.repo.repo;
         const workflow = github.context.workflow;
-        const actionsURL = `https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/actions/runs/${github.context.runId}`;
+        const runId = github.context.runId;
+        const runNumber = github.context.runNumber;
+        const actor = github.context.actor;
+        const url = `https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/actions/runs/${github.context.runId}`;
         const logEntry = {
             streams: [
                 {
                     stream: Object.assign({ source: "github-actions", repositoryOwner,
                         repositoryName,
-                        workflow, url: actionsURL }, labels),
+                        workflow,
+                        runId,
+                        runNumber,
+                        actor,
+                        url }, labels),
                     values: [[`${Date.now()}000000`, message]],
                 },
             ],
