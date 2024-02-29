@@ -31367,6 +31367,9 @@ function sendLog() {
             core.setFailed("Error parsing labels");
             return;
         }
+        if (measurement) {
+            labels["measurement"] = measurement;
+        }
         if (measurement === "start") {
             const startTime = Date.now().toString();
             fs.writeFileSync(timeFilePath, startTime);

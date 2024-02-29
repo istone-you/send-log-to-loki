@@ -27,6 +27,10 @@ async function sendLog(): Promise<void> {
     return;
   }
 
+  if (measurement) {
+    labels["measurement"] = measurement;
+  }
+
   if (measurement === "start") {
     const startTime = Date.now().toString();
 
