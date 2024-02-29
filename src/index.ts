@@ -52,7 +52,7 @@ async function sendLog(): Promise<void> {
     streams: [
       {
         stream: {
-          source: "lokisend-cli",
+          source: "github actions",
           repositoryOwner,
           repositoryName,
           workflow,

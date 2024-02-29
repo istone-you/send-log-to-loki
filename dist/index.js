@@ -31387,7 +31387,7 @@ function sendLog() {
         const logEntry = {
             streams: [
                 {
-                    stream: Object.assign({ source: "lokisend-cli", repositoryOwner,
+                    stream: Object.assign({ source: "github actions", repositoryOwner,
                         repositoryName,
                         workflow, url: actionsURL }, labels),
                     values: [[`${Date.now()}000000`, message]],
