@@ -21,7 +21,7 @@ Include the action in your workflow by adding the following step:
 
 ```yaml
 - name: Send log to Loki
-  uses: your-repo/send-log-to-loki@v1
+  uses: istone-you/send-log-to-loki@v1
   with:
     message: "Your log message"
     measurement: "start" # or "finish" Optional
