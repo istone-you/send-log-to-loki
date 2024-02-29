@@ -31378,17 +31378,18 @@ function sendLog() {
             const startTime = parseInt(fs.readFileSync(timeFilePath, "utf8"), 10);
             const endTime = Date.now();
             const executionDuration = Math.round((endTime - startTime) / 1000);
-            labels["duration"] = `${executionDuration} seconds`;
+            labels["duration"] = `${executionDuration}`;
         }
         const repositoryOwner = github.context.repo.owner;
         const repositoryName = github.context.repo.repo;
         const workflow = github.context.workflow;
+        const actionsURL = `https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/actions/runs/${github.context.runId}`;
         const logEntry = {
             streams: [
                 {
                     stream: Object.assign({ source: "lokisend-cli", repositoryOwner,
                         repositoryName,
-                        workflow }, labels),
+                        workflow, url: actionsURL }, labels),
                     values: [[`${Date.now()}000000`, message]],
                 },
             ],
